@@ -37,7 +37,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     )
     llm = HuggingFacePipeline(pipeline=pipe)
 
-    prompt_template_str = "Bạn là một trợ lý với nhiệm vụ trả lời câu hỏi. Hãy sử dụng những thông tin được cung cấp để trả lời câu hỏi. Nếu bạn không biết hãy trả lời là bạn không biết. Hãy trả lời một cách ngắn gọn và xúc tích.\nThông tin: {context}\nCâu hỏi: {question}\n Câu trả lời:"
+    prompt_template_str = "Bạn là một trợ lý với nhiệm vụ trả lời câu hỏi. Hãy sử dụng những thông tin được cung cấp để trả lời câu hỏi. Nếu bạn không biết hãy trả lời là bạn không biết. Hãy trả lời một cách ngắn gọn và xúc tích.\nThông tin: {context}\nCâu hỏi: {question}\nCâu trả lời:"
 
     prompt = ChatPromptTemplate.from_messages([
         ("human", prompt_template_str),
@@ -55,8 +55,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     return rag_chain
 
 def answer(question="Đền Hùng ở đâu?", chain=None):
-    value = chain.invoke(question)
-    answer = value[value.find("\nCâu trả lời:")+len("\nCâu trả lời:"):]
+    answer = chain.invoke(question)
     torch.cuda.empty_cache()
     return answer, question
     
@@ -64,7 +63,4 @@ if __name__ == "__main__":
     args = get_args()
     rag_chain = create_rag_chain(args.data_dir, args.persist_dir, args.col_name)
     answer, question = answer(args.question, rag_chain)
-    print("Câu hỏi: ", question)
-    print("Trả lời: ", answer)
-
-
+    print(answer)
