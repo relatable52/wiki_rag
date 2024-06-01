@@ -2,9 +2,9 @@ import os
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_core.embeddings import Embeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from tqdm import tqdm
+import torch
 
 def get_args():
     parser = ArgumentParser()
@@ -21,7 +21,9 @@ COLLECTION_NAME = args.col_name
 wiki_articles_list = os.listdir(DATA_DIR)
 
 model_name = "keepitreal/vietnamese-sbert"
-embd = HuggingFaceEmbeddings(model_name=model_name)
+device = "cuda" if torch.cuda.is_available() else "cpu"
+model_kwargs = {'device': device}
+embd = HuggingFaceEmbeddings(model_name=model_name, model_kwargs=model_kwargs)
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 
 vectorstore = Chroma(collection_name=COLLECTION_NAME, embedding_function=embd, persist_directory=CHROMA_PATH)
