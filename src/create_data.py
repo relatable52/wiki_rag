@@ -20,6 +20,7 @@ CHROMA_PATH = args.persist_dir
 COLLECTION_NAME = args.col_name
 
 wiki_articles_list = os.listdir(DATA_DIR)
+print(wiki_articles_list[:10])
 
 model_name = "keepitreal/vietnamese-sbert"
 embd = HuggingFaceEmbeddings(model_name=model_name)
