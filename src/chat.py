@@ -27,7 +27,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     embd = HuggingFaceEmbeddings(model_name=model_name)
 
     vectorstore = Chroma(collection_name=COLLECTION_NAME, persist_directory=CHROMA_PATH, embedding_function=embd)
-    retriever = vectorstore.as_retriever()
+    retriever = vectorstore.as_retriever(k=5)
 
     model_id = "vilm/vinallama-2.7b"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
