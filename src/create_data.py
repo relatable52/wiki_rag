@@ -4,6 +4,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from tqdm import tqdm
+from argparse import ArgumentParser
 import torch
 
 def get_args():
