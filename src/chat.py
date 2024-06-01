@@ -3,6 +3,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.llms import HuggingFacePipeline
+from langchain_core.runnables import RunnablePassthrough
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
