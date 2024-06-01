@@ -37,10 +37,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     )
     llm = HuggingFacePipeline(pipeline=pipe)
 
-    prompt_template_str = """Bạn là một trợ lý với nhiệm vụ trả lời câu hỏi. Hãy sử dụng những thông tin được cung cấp để trả lời câu hỏi. Nếu bạn không biết hãy trả lời là bạn không biết. Hãy trả lời một cách ngắn gọn và xúc tích.
-    Thông tin: {context}
-    Câu hỏi: {question}
-    Câu trả lời:"""
+    prompt_template_str = "Bạn là một trợ lý với nhiệm vụ trả lời câu hỏi. Hãy sử dụng những thông tin được cung cấp để trả lời câu hỏi. Nếu bạn không biết hãy trả lời là bạn không biết. Hãy trả lời một cách ngắn gọn và xúc tích.\nThông tin: {context}\nCâu hỏi: {question}\n Câu trả lời:"
 
     prompt = ChatPromptTemplate.from_messages([
         ("human", prompt_template_str),
