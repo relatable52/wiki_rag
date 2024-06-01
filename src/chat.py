@@ -64,4 +64,4 @@ if __name__ == "__main__":
     rag_chain = create_rag_chain(args.data_dir, args.persist_dir, args.col_name)
     answer, question = answer(args.question, rag_chain)
     print(question)
-    print(answer[answer.find("\nCâu trả lời:")+len("\nCâu trả lời:"):])
+    print(answer[answer.find("\nCâu trả lời:")+len("\nCâu trả lời:"):].strip())
