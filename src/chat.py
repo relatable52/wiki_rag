@@ -7,14 +7,24 @@ from langchain_community.llms import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from argparse import ArgumentParser
 
-DATA_DIR = "data_raw10k"
-CHROMA_PATH = "chroma_data/"
+def get_args():
+    parser = ArgumentParser()
+    parser.add_argument("--data_dir", type=str, default="data_raw10k")
+    parser.add_argument("--persist_dir", type=str, default="chroma_data/")
+    parser.add_argument("--col_name", type=str, default="wiki10k")
+    return parser.parse_args()
+
+args = get_args()
+DATA_DIR = args.data_dir
+CHROMA_PATH = args.persist_dir
+COLLECTION_NAME = args.col_name
 
 model_name = "keepitreal/vietnamese-sbert"
 embd = HuggingFaceEmbeddings(model_name=model_name)
 
-vectorstore = Chroma(collection_name="wiki10k", persist_directory=CHROMA_PATH, embedding_function=embd)
+vectorstore = Chroma(collection_name=COLLECTION_NAME, persist_directory=CHROMA_PATH, embedding_function=embd)
 retriever = vectorstore.as_retriever()
 
 model_id = "vilm/vinallama-2.7b"
