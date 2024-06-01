@@ -20,7 +20,6 @@ CHROMA_PATH = args.persist_dir
 COLLECTION_NAME = args.col_name
 
 wiki_articles_list = os.listdir(DATA_DIR)
-print(wiki_articles_list[:10])
 
 model_name = "keepitreal/vietnamese-sbert"
 embd = HuggingFaceEmbeddings(model_name=model_name)
@@ -32,8 +31,7 @@ print("Creating vector store...")
 loop = tqdm(wiki_articles_list)
 for i in loop:
     loop.set_description(f"Processing {i}")
-    print(os.path.join("data_raw10k", i))
-    loader = TextLoader(os.path.join("data_raw10k", i), encoding="utf-8", autodetect_encoding=True)
+    loader = TextLoader(os.path.join(DATA_DIR, i), encoding="utf-8", autodetect_encoding=True)
     docs = loader.load()
     splits = splitter.split_documents(docs)
     vectorstore.add_documents(splits)
