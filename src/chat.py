@@ -14,7 +14,7 @@ def get_args():
     parser.add_argument("--data_dir", type=str, default="data_raw10k")
     parser.add_argument("--persist_dir", type=str, default="chroma_data/")
     parser.add_argument("--col_name", type=str, default="wiki10k")
-    parser.add_argument("--question", type=str, default="Tập đoàn Viettel thành lập năm nào?")
+    parser.add_argument("--question", type=str, default="Đền Hùng ở đâu?")
     return parser.parse_args()
 
 def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_name="wiki10k"):
@@ -41,7 +41,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     Câu hỏi: {question}
     Câu trả lời:"""
 
-    prompt = ChatPromptTemplate.from_message([
+    prompt = ChatPromptTemplate.from_messages([
         ("human", prompt_template_str),
     ])
 
@@ -56,7 +56,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     )
     return rag_chain
 
-def answer(question="Tập đoàn Viettel thành lập năm nào?", chain=None):
+def answer(question="Đền Hùng ở đâu?", chain=None):
     value = chain.invoke(question)
     answer = value[value.find("\nCâu trả lời:")+len("\nCâu trả lời:"):]
     torch.cuda.empty_cache()
