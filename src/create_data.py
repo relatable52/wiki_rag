@@ -22,9 +22,7 @@ COLLECTION_NAME = args.col_name
 wiki_articles_list = os.listdir(DATA_DIR)
 
 model_name = "keepitreal/vietnamese-sbert"
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model_kwargs = {'device': device}
-embd = HuggingFaceEmbeddings(model_name=model_name, model_kwargs=model_kwargs)
+embd = HuggingFaceEmbeddings(model_name=model_name)
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 
 vectorstore = Chroma(collection_name=COLLECTION_NAME, embedding_function=embd, persist_directory=CHROMA_PATH)
