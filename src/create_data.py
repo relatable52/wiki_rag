@@ -31,7 +31,7 @@ print("Creating vector store...")
 loop = tqdm(wiki_articles_list)
 for i in loop:
     loop.set_description(f"Processing {i}")
-    loader = TextLoader(os.path.join("data_raw10k", i), encoding="utf-8")
+    loader = TextLoader(os.path.join("data_raw10k", i), encoding="utf-8", autodetect_encoding=True)
     docs = loader.load()
     splits = splitter.split_documents(docs)
     vectorstore.add_documents(splits)
