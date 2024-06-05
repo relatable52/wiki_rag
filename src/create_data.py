@@ -24,7 +24,7 @@ def main():
 
     model_name = "keepitreal/vietnamese-sbert"
     embd = HuggingFaceEmbeddings(model_name=model_name)
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=300)
 
     vectorstore = Chroma(collection_name=COLLECTION_NAME, embedding_function=embd, persist_directory=CHROMA_PATH)
 
