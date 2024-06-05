@@ -65,14 +65,6 @@ def create_rag_chain_raw(data_dir="data_raw10k", persist_dir="chroma_data/", col
     vectorstore = Chroma(collection_name=COLLECTION_NAME, persist_directory=CHROMA_PATH, embedding_function=embd)
     retriever = vectorstore.as_retriever(k=5)
 
-    model_id = "vilm/vinallama-2.7b"
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
-    model = AutoModelForCausalLM.from_pretrained(model_id)
-    pipe = pipeline(
-        "text-generation", model=model, torch_dtype=torch.float16, tokenizer=tokenizer, max_new_tokens=200, device="cuda"
-    )
-    llm = HuggingFacePipeline(pipeline=pipe)
-
     prompt_template_str = "Bạn là một trợ lý với nhiệm vụ trả lời câu hỏi. Hãy sử dụng những thông tin được cung cấp để trả lời câu hỏi. Nếu bạn không biết hãy trả lời là bạn không biết. Hãy trả lời một cách ngắn gọn và xúc tích.\nThông tin: {context}\nCâu hỏi: {question}\nCâu trả lời:"
 
     prompt = ChatPromptTemplate.from_messages([
