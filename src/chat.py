@@ -72,7 +72,7 @@ def create_rag_chain_raw(data_dir="data_raw10k", persist_dir="chroma_data/", col
     ])
 
     def format_docs(docs):
-        return "\n\n".join(doc.page_content for doc in docs)
+        return "\n\n".join([d.page_content for d in docs])
 
     rag_chain = (
         {"context": retriever | format_docs, "question": RunnablePassthrough()}
