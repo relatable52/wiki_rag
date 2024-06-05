@@ -23,7 +23,7 @@ def create_rag_chain(data_dir="data_raw10k", persist_dir="chroma_data/", col_nam
     CHROMA_PATH = persist_dir
     COLLECTION_NAME = col_name
 
-    model_name = "keepitreal/vietnamese-sbert"
+    model_name = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
     embd = HuggingFaceEmbeddings(model_name=model_name)
 
     vectorstore = Chroma(collection_name=COLLECTION_NAME, persist_directory=CHROMA_PATH, embedding_function=embd)
@@ -59,7 +59,7 @@ def create_rag_chain_raw(data_dir="data_raw10k", persist_dir="chroma_data/", col
     CHROMA_PATH = persist_dir
     COLLECTION_NAME = col_name
 
-    model_name = "keepitreal/vietnamese-sbert"
+    model_name = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
     embd = HuggingFaceEmbeddings(model_name=model_name)
 
     vectorstore = Chroma(collection_name=COLLECTION_NAME, persist_directory=CHROMA_PATH, embedding_function=embd)
